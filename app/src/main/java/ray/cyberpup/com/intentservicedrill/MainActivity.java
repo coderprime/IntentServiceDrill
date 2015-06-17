@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    ResponseReceiver mResponseReceiver;
     @Override
     protected void onStart() {
         super.onStart();
@@ -46,10 +46,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ResponseReceiver mResponseReceiver = new ResponseReceiver();
+        mResponseReceiver = new ResponseReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(mResponseReceiver,
                 mStatusIntentFilter);
 
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mResponseReceiver);
 
     }
 
